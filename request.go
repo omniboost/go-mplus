@@ -1,4 +1,4 @@
-package netsuite
+package mplus
 
 import "net/url"
 
