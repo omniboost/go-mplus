@@ -4,7 +4,8 @@ import (
 	"os"
 	"testing"
 
-	netsuite "github.com/omniboost/go-netsuite-soap"
+	"github.com/omniboost/go-mplus"
+	"github.com/omniboost/go-mplus"
 )
 
 var (
@@ -17,7 +18,7 @@ func TestMain(m *testing.M) {
 	secret := os.Getenv("SECRET")
 	debug := os.Getenv("DEBUG")
 
-	client = netsuite.NewClient(nil)
+	client = mplus.NewClient(nil)
 	client.SetIdent(ident)
 	client.SetSecret(secret)
 	if debug != "" {

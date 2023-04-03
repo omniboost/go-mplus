@@ -6,8 +6,8 @@ import (
 	"net/url"
 
 	"github.com/cydev/zero"
-	"github.com/omniboost/go-netsuite-soap/omitempty"
-	"github.com/omniboost/go-netsuite-soap/utils"
+	"github.com/omniboost/go-mplus/omitempty"
+	"github.com/omniboost/go-mplus/utils"
 	"github.com/pkg/errors"
 )
 
@@ -125,129 +125,7 @@ type GetReceiptsRequestResponseBody struct {
 	XMLName xml.Name `xml:"GetReceiptsResponse"`
 
 	ReceiptList struct {
-		Receipt []struct {
-			ReceiptID string `xml:"receiptId"`
-			OrderIDs  struct {
-				ID string `xml:"id"`
-			} `xml:"orderIds"`
-			TransactionString string `xml:"transactionString"`
-			SyncMarker        string `xml:"syncMarker"`
-			ReceiptNumber     struct {
-				BranchNumber    string `xml:"branchNumber"`
-				WorkplaceNumber string `xml:"workplaceNumber"`
-				Year            string `xml:"year"`
-				Number          string `xml:"number"`
-			} `xml:"receiptNumber"`
-			ReceiptBarcode string `xml:"receiptBarcode"`
-			ReceiptType    string `xml:"receiptType"`
-			EmployeeNumber string `xml:"employeeNumber"`
-			EmployeeName   string `xml:"employeeName"`
-			EntryTimestamp struct {
-				Sec      string `xml:"sec"`
-				Min      string `xml:"min"`
-				Hour     string `xml:"hour"`
-				Day      string `xml:"day"`
-				Mon      string `xml:"mon"`
-				Year     string `xml:"year"`
-				Isdst    string `xml:"isdst"`
-				Timezone string `xml:"timezone"`
-			} `xml:"entryTimestamp"`
-			FinancialDate struct {
-				Day  string `xml:"day"`
-				Mon  string `xml:"mon"`
-				Year string `xml:"year"`
-			} `xml:"financialDate"`
-			FinancialBranchNumber string `xml:"financialBranchNumber"`
-			WorkplaceNumber       string `xml:"workplaceNumber"`
-			Reference             string `xml:"reference"`
-			TotalInclAmount       string `xml:"totalInclAmount"`
-			TotalExclAmount       string `xml:"totalExclAmount"`
-			VatMethod             string `xml:"vatMethod"`
-			VatGroupList          struct {
-				VatGroup []struct {
-					VatCode       string `xml:"vatCode"`
-					VatPercentage string `xml:"vatPercentage"`
-					ExclAmount    string `xml:"exclAmount"`
-					VatAmount     string `xml:"vatAmount"`
-				} `xml:"vatGroup"`
-			} `xml:"vatGroupList"`
-			ChangeCounter string `xml:"changeCounter"`
-			VersionNumber string `xml:"versionNumber"`
-			PaidAmount    string `xml:"paidAmount"`
-			State         string `xml:"state"`
-			LineList      struct {
-				Line []struct {
-					Chardata       string `xml:",chardata"`
-					LineID         string `xml:"lineId"`
-					EmployeeNumber string `xml:"employeeNumber"`
-					ArticleNumber  string `xml:"articleNumber"`
-					LineType       string `xml:"lineType"`
-					Data           struct {
-						Quantity           int     `xml:"quantity"`
-						DecimalPlaces      string  `xml:"decimalPlaces"`
-						Price              float64 `xml:"price"`
-						PriceExcl          float64 `xml:"priceExcl"`
-						OriginalPrice      float64 `xml:"originalPrice"`
-						OriginalPriceExcl  float64 `xml:"originalPriceExcl"`
-						PurchasePrice      float64 `xml:"purchasePrice"`
-						TurnoverGroup      int     `xml:"turnoverGroup"`
-						TurnoverGroupType  string  `xml:"turnoverGroupType"`
-						VatCode            int     `xml:"vatCode"`
-						VatPercentage      float64 `xml:"vatPercentage"`
-						DiscountType       string  `xml:"discountType"`
-						DiscountPercentage float64 `xml:"discountPercentage"`
-						DiscountAmount     float64 `xml:"discountAmount"`
-						TotalInclAmount    float64 `xml:"totalInclAmount"`
-						TotalExclAmount    float64 `xml:"totalExclAmount"`
-						PriceType          string  `xml:"priceType"`
-					} `xml:"data"`
-					CourseNumber    string `xml:"courseNumber"`
-					PreparationList struct {
-						Line []struct {
-							Chardata       string `xml:",chardata"`
-							LineID         string `xml:"lineId"`
-							EmployeeNumber string `xml:"employeeNumber"`
-							ArticleNumber  string `xml:"articleNumber"`
-							Data           struct {
-								Quantity           int     `xml:"quantity"`
-								DecimalPlaces      int     `xml:"decimalPlaces"`
-								Price              float64 `xml:"price"`
-								PriceExcl          float64 `xml:"priceExcl"`
-								OriginalPrice      float64 `xml:"originalPrice"`
-								OriginalPriceExcl  float64 `xml:"originalPriceExcl"`
-								PurchasePrice      float64 `xml:"purchasePrice"`
-								TurnoverGroup      string  `xml:"turnoverGroup"`
-								TurnoverGroupType  string  `xml:"turnoverGroupType"`
-								VatCode            int     `xml:"vatCode"`
-								VatPercentage      float64 `xml:"vatPercentage"`
-								DiscountType       string  `xml:"discountType"`
-								DiscountPercentage float64 `xml:"discountPercentage"`
-								DiscountAmount     float64 `xml:"discountAmount"`
-								TotalInclAmount    float64 `xml:"totalInclAmount"`
-								TotalExclAmount    float64 `xml:"totalExclAmount"`
-								PriceType          string  `xml:"priceType"`
-							} `xml:"data"`
-							LineType     string `xml:"lineType"`
-							CourseNumber string `xml:"courseNumber"`
-						} `xml:"line"`
-					} `xml:"preparationList"`
-				} `xml:"line"`
-			} `xml:"lineList"`
-			PaymentList struct {
-				Payment struct {
-					PaymentID     string `xml:"paymentId"`
-					FinancialDate struct {
-						Day  string `xml:"day"`
-						Mon  string `xml:"mon"`
-						Year string `xml:"year"`
-					} `xml:"financialDate"`
-					Method        string  `xml:"method"`
-					Amount        float64 `xml:"amount"`
-					AccountNumber string  `xml:"accountNumber"`
-				} `xml:"payment"`
-			} `xml:"paymentList"`
-			VatChange string `xml:"vatChange"`
-		} `xml:"receipt"`
+		Receipt Receipts `xml:"receipt"`
 	} `xml:"receiptList"`
 }
 

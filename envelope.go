@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 
 	"github.com/cydev/zero"
-	"github.com/omniboost/go-netsuite-soap/omitempty"
+	"github.com/omniboost/go-mplus/omitempty"
 )
 
 type RequestEnvelope struct {

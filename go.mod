@@ -1,4 +1,4 @@
-module github.com/omniboost/go-netsuite-soap
+module github.com/omniboost/go-mplus
 
 go 1.16
 
