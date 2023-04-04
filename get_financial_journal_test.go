@@ -8,12 +8,13 @@ import (
 
 func TestGetFinancialJournal(t *testing.T) {
 	req := client.NewGetFinancialJournalRequest()
-	req.RequestBody().Request.FromFinancialDate.Day = 1
-	req.RequestBody().Request.FromFinancialDate.Mon = 1
-	req.RequestBody().Request.FromFinancialDate.Year = 2023
-	req.RequestBody().Request.ThroughFinancialDate.Day = 1
-	req.RequestBody().Request.ThroughFinancialDate.Mon = 4
-	req.RequestBody().Request.ThroughFinancialDate.Year = 2023
+	req.RequestBody().Request.FromFinancialDate.Day = 4
+	req.RequestBody().Request.FromFinancialDate.Mon = 5
+	req.RequestBody().Request.FromFinancialDate.Year = 2021
+	req.RequestBody().Request.ThroughFinancialDate.Day = 5
+	req.RequestBody().Request.ThroughFinancialDate.Mon = 5
+	req.RequestBody().Request.ThroughFinancialDate.Year = 2021
+	req.RequestBody().Request.BranchNumbers = []int{4}
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

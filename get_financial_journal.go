@@ -102,6 +102,7 @@ type GetFinancialJournalRequestBody struct {
 			Mon  int `xml:"urn:mon"`
 			Year int `xml:"urn:year"`
 		} `xml:"urn:throughFinancialDate"`
+		BranchNumbers []int `xml:"urn:branchNumbers"`
 	} `xml:"urn:request"`
 }
 
@@ -122,7 +123,12 @@ func (r *GetFinancialJournalRequest) NewResponseBody() *GetFinancialJournalReque
 }
 
 type GetFinancialJournalRequestResponseBody struct {
-	XMLName xml.Name `xml:"searchResponse"`
+	XMLName xml.Name `xml:"GetFinancialJournalResponse"`
+
+	FinancialGroupList struct {
+		FinancialGroup FinancialGroups `xml:"financialGroup"`
+	} `xml:"financialGroupList"`
+	FinancialPeriodClosed string `xml:"financialPeriodClosed"`
 }
 
 func (r *GetFinancialJournalRequest) URL() (*url.URL, error) {

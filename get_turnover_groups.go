@@ -112,24 +112,7 @@ type GetTurnoverGroupsRequestResponseBody struct {
 	XMLName xml.Name `xml:"GetTurnoverGroupsResponse"`
 
 	TurnoverGroupList struct {
-		Text          string `xml:",chardata"`
-		TurnoverGroup []struct {
-			Text                    string `xml:",chardata"`
-			TurnoverGroupType       string `xml:"turnoverGroupType"`
-			TurnoverGroup           string `xml:"turnoverGroup"`
-			TurnoverGroupName       string `xml:"turnoverGroupName"`
-			AllowPointsDistribution string `xml:"allowPointsDistribution"`
-			AllowPointsPayment      string `xml:"allowPointsPayment"`
-			AllowDiscount           string `xml:"allowDiscount"`
-			BranchAccountNumberList struct {
-				Text                string `xml:",chardata"`
-				BranchAccountNumber []struct {
-					Text          string `xml:",chardata"`
-					BranchNumber  string `xml:"branchNumber"`
-					AccountNumber string `xml:"accountNumber"`
-				} `xml:"branchAccountNumber"`
-			} `xml:"branchAccountNumberList"`
-		} `xml:"turnoverGroup"`
+		TurnoverGroup TurnoverGroups `xml:"turnoverGroup"`
 	} `xml:"turnoverGroupList"`
 }
 

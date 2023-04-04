@@ -5,11 +5,10 @@ import (
 	"testing"
 
 	"github.com/omniboost/go-mplus"
-	"github.com/omniboost/go-mplus"
 )
 
 var (
-	client *netsuite.Client
+	client *mplus.Client
 )
 
 func TestMain(m *testing.M) {

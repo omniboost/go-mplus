@@ -61,7 +61,7 @@ type Receipt struct {
 		ID string `xml:"id"`
 	} `xml:"orderIds"`
 	TransactionString string `xml:"transactionString"`
-	SyncMarker        string `xml:"syncMarker"`
+	SyncMarker        int    `xml:"syncMarker"`
 	ReceiptNumber     struct {
 		BranchNumber    string `xml:"branchNumber"`
 		WorkplaceNumber string `xml:"workplaceNumber"`
@@ -110,7 +110,7 @@ type Receipt struct {
 			Chardata       string `xml:",chardata"`
 			LineID         string `xml:"lineId"`
 			EmployeeNumber string `xml:"employeeNumber"`
-			ArticleNumber  string `xml:"articleNumber"`
+			ArticleNumber  int    `xml:"articleNumber"`
 			LineType       string `xml:"lineType"`
 			Data           struct {
 				Quantity           int     `xml:"quantity"`
@@ -137,7 +137,7 @@ type Receipt struct {
 					Chardata       string `xml:",chardata"`
 					LineID         string `xml:"lineId"`
 					EmployeeNumber string `xml:"employeeNumber"`
-					ArticleNumber  string `xml:"articleNumber"`
+					ArticleNumber  int    `xml:"articleNumber"`
 					Data           struct {
 						Quantity           int     `xml:"quantity"`
 						DecimalPlaces      int     `xml:"decimalPlaces"`
@@ -146,7 +146,7 @@ type Receipt struct {
 						OriginalPrice      float64 `xml:"originalPrice"`
 						OriginalPriceExcl  float64 `xml:"originalPriceExcl"`
 						PurchasePrice      float64 `xml:"purchasePrice"`
-						TurnoverGroup      string  `xml:"turnoverGroup"`
+						TurnoverGroup      int     `xml:"turnoverGroup"`
 						TurnoverGroupType  string  `xml:"turnoverGroupType"`
 						VatCode            int     `xml:"vatCode"`
 						VatPercentage      float64 `xml:"vatPercentage"`
@@ -177,4 +177,230 @@ type Receipt struct {
 		} `xml:"payment"`
 	} `xml:"paymentList"`
 	VatChange string `xml:"vatChange"`
+}
+
+type TurnoverGroups []TurnoverGroup
+
+type TurnoverGroup struct {
+	TurnoverGroupType       string `xml:"turnoverGroupType"`
+	TurnoverGroup           int    `xml:"turnoverGroup"`
+	TurnoverGroupName       string `xml:"turnoverGroupName"`
+	AllowPointsDistribution string `xml:"allowPointsDistribution"`
+	AllowPointsPayment      string `xml:"allowPointsPayment"`
+	AllowDiscount           string `xml:"allowDiscount"`
+	BranchAccountNumberList struct {
+		Text                string `xml:",chardata"`
+		BranchAccountNumber []struct {
+			Text          string `xml:",chardata"`
+			BranchNumber  string `xml:"branchNumber"`
+			AccountNumber string `xml:"accountNumber"`
+		} `xml:"branchAccountNumber"`
+	} `xml:"branchAccountNumberList"`
+}
+
+type Products []Product
+
+type Product struct {
+	ProductNumber int    `xml:"productNumber"`
+	SyncMarker    int    `xml:"syncMarker"`
+	Description   string `xml:"description"`
+	ExtraText     string `xml:"extraText"`
+	ArticleList   struct {
+		Article struct {
+			ArticleNumber         int       `xml:"articleNumber"`
+			PluNumber             int       `xml:"pluNumber"`
+			SyncMarker            int       `xml:"syncMarker"`
+			ChangeTimestamp       Timestamp `xml:"changeTimestamp"`
+			CreateTimestamp       Timestamp `xml:"createTimestamp"`
+			Active                string    `xml:"active"`
+			Description           string    `xml:"description"`
+			Colour                string    `xml:"colour"`
+			Size                  string    `xml:"size"`
+			InvoiceText           string    `xml:"invoiceText"`
+			ReceiptText           string    `xml:"receiptText"`
+			DisplayText           string    `xml:"displayText"`
+			Barcode               string    `xml:"barcode"`
+			ExtraText             string    `xml:"extraText"`
+			TurnoverGroup         int       `xml:"turnoverGroup"`
+			VatCode               string    `xml:"vatCode"`
+			VatPercentage         float64   `xml:"vatPercentage"`
+			AveragePurchasePrice  float64   `xml:"averagePurchasePrice"`
+			PurchasePrice         float64   `xml:"purchasePrice"`
+			PriceIncl             float64   `xml:"priceIncl"`
+			PriceExcl             float64   `xml:"priceExcl"`
+			SupplierArticleNumber string    `xml:"supplierArticleNumber"`
+			Webshop               string    `xml:"webshop"`
+			CategoryId            string    `xml:"categoryId"`
+			CategoryIds           struct {
+				Category string `xml:"category"`
+			} `xml:"categoryIds"`
+			StockArticle string `xml:"stockArticle"`
+			Course       struct {
+				Number              string `xml:"number"`
+				Name                string `xml:"name"`
+				Abbreviation        string `xml:"abbreviation"`
+				SequenceNumber      string `xml:"sequenceNumber"`
+				Type                string `xml:"type"`
+				DoSetTable          string `xml:"doSetTable"`
+				CanBeServedWithWine string `xml:"canBeServedWithWine"`
+			} `xml:"course"`
+			SpecialPrice                   string `xml:"specialPrice"`
+			ShowPreparationMethodsDirectly string `xml:"showPreparationMethodsDirectly"`
+			ShowPreparationMethodsPerGroup string `xml:"showPreparationMethodsPerGroup"`
+			ImageList                      struct {
+				Image struct {
+					ImageId          string    `xml:"imageId"`
+					ImageName        string    `xml:"imageName"`
+					ImageHash        string    `xml:"imageHash"`
+					ImagePath        string    `xml:"imagePath"`
+					ImageUrl         string    `xml:"imageUrl"`
+					ImageData        string    `xml:"imageData"`
+					ImageDataResult  string    `xml:"imageDataResult"`
+					ThumbHash        string    `xml:"thumbHash"`
+					ThumbPath        string    `xml:"thumbPath"`
+					ThumbUrl         string    `xml:"thumbUrl"`
+					ThumbData        string    `xml:"thumbData"`
+					ThumbDataResult  string    `xml:"thumbDataResult"`
+					ImageWidth       string    `xml:"imageWidth"`
+					ImageHeight      string    `xml:"imageHeight"`
+					ThumbWidth       string    `xml:"thumbWidth"`
+					ThumbHeight      string    `xml:"thumbHeight"`
+					CreatedTimestamp Timestamp `xml:"createdTimestamp"`
+					ChangedTimestamp Timestamp `xml:"changedTimestamp"`
+				} `xml:"image"`
+			} `xml:"imageList"`
+			CustomFieldList struct {
+				CustomField []struct {
+					FieldName     string `xml:"fieldName"`
+					DataType      string `xml:"dataType"`
+					StrValue      string `xml:"strValue"`
+					IntValue      string `xml:"intValue"`
+					DecimalPlaces string `xml:"decimalPlaces"`
+				} `xml:"customField"`
+			} `xml:"customFieldList"`
+			PreparationMethodList struct {
+				PreparationMethod []struct {
+					ArticleNumber              int     `xml:"articleNumber"`
+					Description                string  `xml:"description"`
+					PriceIncl                  float64 `xml:"priceIncl"`
+					VatCode                    string  `xml:"vatCode"`
+					VatPercentage              float64 `xml:"vatPercentage"`
+					SyncMarker                 int     `xml:"syncMarker"`
+					CloseAfterSelection        string  `xml:"closeAfterSelection"`
+					GroupNumber                string  `xml:"groupNumber"`
+					GroupName                  string  `xml:"groupName"`
+					MaxOneSelection            string  `xml:"maxOneSelection"`
+					SelectionRequired          string  `xml:"selectionRequired"`
+					NutritionalCharacteristics struct {
+						AllergenList        string `xml:"allergenList"`
+						DietRestrictionList string `xml:"dietRestrictionList"`
+					} `xml:"nutritionalCharacteristics"`
+				} `xml:"preparationMethod"`
+			} `xml:"preparationMethodList"`
+			LinkedArticleList struct {
+				LinkedArticle []struct {
+					ArticleNumber int    `xml:"articleNumber"`
+					Quantity      string `xml:"quantity"`
+					DecimalPlaces string `xml:"decimalPlaces"`
+				} `xml:"linkedArticle"`
+			} `xml:"linkedArticleList"`
+			BarcodeList struct {
+				Barcode struct {
+					BarcodeId     string  `xml:"barcodeId"`
+					Description   string  `xml:"description"`
+					Quantity      string  `xml:"quantity"`
+					DecimalPlaces string  `xml:"decimalPlaces"`
+					PurchasePrice float64 `xml:"purchasePrice"`
+					PriceIncl     float64 `xml:"priceIncl"`
+					IsCurrent     string  `xml:"isCurrent"`
+					Barcode       string  `xml:"barcode"`
+					PriceExcl     float64 `xml:"priceExcl"`
+				} `xml:"barcode"`
+			} `xml:"barcodeList"`
+			AskFor                     string `xml:"askFor"`
+			Discontinued               string `xml:"discontinued"`
+			NutritionalCharacteristics struct {
+				AllergenList        string `xml:"allergenList"`
+				DietRestrictionList string `xml:"dietRestrictionList"`
+			} `xml:"nutritionalCharacteristics"`
+			ComponentArticleList struct {
+				ComponentArticle []struct {
+					ArticleNumber     int     `xml:"articleNumber"`
+					Quantity          string  `xml:"quantity"`
+					DecimalPlaces     string  `xml:"decimalPlaces"`
+					Description       string  `xml:"description"`
+					InvoiceText       string  `xml:"invoiceText"`
+					ReceiptText       string  `xml:"receiptText"`
+					DisplayText       string  `xml:"displayText"`
+					Barcode           string  `xml:"barcode"`
+					TurnoverGroup     int     `xml:"turnoverGroup"`
+					VatCode           string  `xml:"vatCode"`
+					VatPercentage     float64 `xml:"vatPercentage"`
+					PurchasePrice     float64 `xml:"purchasePrice"`
+					PriceIncl         float64 `xml:"priceIncl"`
+					PriceExcl         float64 `xml:"priceExcl"`
+					LinkedArticleList struct {
+						LinkedArticle struct {
+							ArticleNumber int    `xml:"articleNumber"`
+							Quantity      string `xml:"quantity"`
+							DecimalPlaces string `xml:"decimalPlaces"`
+						} `xml:"linkedArticle"`
+					} `xml:"linkedArticleList"`
+				} `xml:"componentArticle"`
+			} `xml:"componentArticleList"`
+			PriceGroupList struct {
+				PriceGroup struct {
+					PriceGroupNumber   string  `xml:"priceGroupNumber"`
+					Description        string  `xml:"description"`
+					DiscountPercentage float64 `xml:"discountPercentage"`
+				} `xml:"priceGroup"`
+			} `xml:"priceGroupList"`
+			OrderQuantityValue         string `xml:"orderQuantityValue"`
+			OrderQuantityDecimalPlaces string `xml:"orderQuantityDecimalPlaces"`
+			SupplierRelationNumber     string `xml:"supplierRelationNumber"`
+			SupplierRelationName       string `xml:"supplierRelationName"`
+		} `xml:"article"`
+	} `xml:"articleList"`
+	SortOrderGroupList struct {
+		SortOrderGroup []struct {
+			GroupNumber string `xml:"groupNumber"`
+			SortOrder   string `xml:"sortOrder"`
+		} `xml:"sortOrderGroup"`
+	} `xml:"sortOrderGroupList"`
+	GroupNumbers []string `xml:"groupNumbers"`
+}
+
+type FinancialGroups []FinancialGroup
+
+type FinancialGroup struct {
+	FinancialGroupType   string `xml:"financialGroupType"`
+	FinancialGroupSource string `xml:"financialGroupSource"`
+	FinancialGroupNumber string `xml:"financialGroupNumber"`
+	FinancialGroupName   string `xml:"financialGroupName"`
+	AccountNumber        int    `xml:"accountNumber"`
+	BranchNumber         int    `xml:"branchNumber"`
+	ExtBranchId          int    `xml:"extBranchId"`
+	FromFinancialDate    struct {
+		Day  int `xml:"day"`
+		Mon  int `xml:"mon"`
+		Year int `xml:"year"`
+	} `xml:"fromFinancialDate"`
+	ThroughFinancialDate struct {
+		Day  int `xml:"day"`
+		Mon  int `xml:"mon"`
+		Year int `xml:"year"`
+	} `xml:"throughFinancialDate"`
+	FinancialPeriodClosed string  `xml:"financialPeriodClosed"`
+	Quantity              int     `xml:"quantity"`
+	DecimalPlaces         int     `xml:"decimalPlaces"`
+	InclAmount            float64 `xml:"inclAmount"`
+	ExclAmount            float64 `xml:"exclAmount"`
+	VatGroupList          struct {
+		VatGroup []struct {
+			VatCode       int     `xml:"vatCode"`
+			VatPercentage float64 `xml:"vatPercentage"`
+			ExclAmount    float64 `xml:"exclAmount"`
+			VatAmount     float64 `xml:"vatAmount"`
+		} `xml:"vatGroup"`
+	} `xml:"vatGroupList"`
 }

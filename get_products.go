@@ -90,6 +90,11 @@ func (r GetProductsRequest) NewRequestBody() GetProductsRequestBody {
 
 type GetProductsRequestBody struct {
 	XMLName xml.Name `xml:"urn:getProducts"`
+
+	Request struct {
+		SyncMarker int  `xml:"urn:syncMarker,omitempty"`
+		OnlyActive bool `xml:"urn:onlyActive"`
+	} `xml:"urn:request"`
 }
 
 func (r *GetProductsRequest) RequestBody() *GetProductsRequestBody {
@@ -112,175 +117,7 @@ type GetProductsRequestResponseBody struct {
 	XMLName xml.Name `xml:"GetProductsResponse"`
 
 	ProductList struct {
-		Product []struct {
-			ProductNumber string `xml:"productNumber"`
-			SyncMarker    string `xml:"syncMarker"`
-			Description   string `xml:"description"`
-			ExtraText     string `xml:"extraText"`
-			ArticleList   struct {
-				Article struct {
-					ArticleNumber         int       `xml:"articleNumber"`
-					PluNumber             int       `xml:"pluNumber"`
-					SyncMarker            string    `xml:"syncMarker"`
-					ChangeTimestamp       Timestamp `xml:"changeTimestamp"`
-					CreateTimestamp       Timestamp `xml:"createTimestamp"`
-					Active                string    `xml:"active"`
-					Description           string    `xml:"description"`
-					Colour                string    `xml:"colour"`
-					Size                  string    `xml:"size"`
-					InvoiceText           string    `xml:"invoiceText"`
-					ReceiptText           string    `xml:"receiptText"`
-					DisplayText           string    `xml:"displayText"`
-					Barcode               string    `xml:"barcode"`
-					ExtraText             string    `xml:"extraText"`
-					TurnoverGroup         string    `xml:"turnoverGroup"`
-					VatCode               string    `xml:"vatCode"`
-					VatPercentage         float64   `xml:"vatPercentage"`
-					AveragePurchasePrice  float64   `xml:"averagePurchasePrice"`
-					PurchasePrice         float64   `xml:"purchasePrice"`
-					PriceIncl             float64   `xml:"priceIncl"`
-					PriceExcl             float64   `xml:"priceExcl"`
-					SupplierArticleNumber string    `xml:"supplierArticleNumber"`
-					Webshop               string    `xml:"webshop"`
-					CategoryId            string    `xml:"categoryId"`
-					CategoryIds           struct {
-						Category string `xml:"category"`
-					} `xml:"categoryIds"`
-					StockArticle string `xml:"stockArticle"`
-					Course       struct {
-						Number              string `xml:"number"`
-						Name                string `xml:"name"`
-						Abbreviation        string `xml:"abbreviation"`
-						SequenceNumber      string `xml:"sequenceNumber"`
-						Type                string `xml:"type"`
-						DoSetTable          string `xml:"doSetTable"`
-						CanBeServedWithWine string `xml:"canBeServedWithWine"`
-					} `xml:"course"`
-					SpecialPrice                   string `xml:"specialPrice"`
-					ShowPreparationMethodsDirectly string `xml:"showPreparationMethodsDirectly"`
-					ShowPreparationMethodsPerGroup string `xml:"showPreparationMethodsPerGroup"`
-					ImageList                      struct {
-						Image struct {
-							ImageId          string    `xml:"imageId"`
-							ImageName        string    `xml:"imageName"`
-							ImageHash        string    `xml:"imageHash"`
-							ImagePath        string    `xml:"imagePath"`
-							ImageUrl         string    `xml:"imageUrl"`
-							ImageData        string    `xml:"imageData"`
-							ImageDataResult  string    `xml:"imageDataResult"`
-							ThumbHash        string    `xml:"thumbHash"`
-							ThumbPath        string    `xml:"thumbPath"`
-							ThumbUrl         string    `xml:"thumbUrl"`
-							ThumbData        string    `xml:"thumbData"`
-							ThumbDataResult  string    `xml:"thumbDataResult"`
-							ImageWidth       string    `xml:"imageWidth"`
-							ImageHeight      string    `xml:"imageHeight"`
-							ThumbWidth       string    `xml:"thumbWidth"`
-							ThumbHeight      string    `xml:"thumbHeight"`
-							CreatedTimestamp Timestamp `xml:"createdTimestamp"`
-							ChangedTimestamp Timestamp `xml:"changedTimestamp"`
-						} `xml:"image"`
-					} `xml:"imageList"`
-					CustomFieldList struct {
-						CustomField []struct {
-							FieldName     string `xml:"fieldName"`
-							DataType      string `xml:"dataType"`
-							StrValue      string `xml:"strValue"`
-							IntValue      string `xml:"intValue"`
-							DecimalPlaces string `xml:"decimalPlaces"`
-						} `xml:"customField"`
-					} `xml:"customFieldList"`
-					PreparationMethodList struct {
-						PreparationMethod []struct {
-							ArticleNumber              string  `xml:"articleNumber"`
-							Description                string  `xml:"description"`
-							PriceIncl                  float64 `xml:"priceIncl"`
-							VatCode                    string  `xml:"vatCode"`
-							VatPercentage              float64 `xml:"vatPercentage"`
-							SyncMarker                 string  `xml:"syncMarker"`
-							CloseAfterSelection        string  `xml:"closeAfterSelection"`
-							GroupNumber                string  `xml:"groupNumber"`
-							GroupName                  string  `xml:"groupName"`
-							MaxOneSelection            string  `xml:"maxOneSelection"`
-							SelectionRequired          string  `xml:"selectionRequired"`
-							NutritionalCharacteristics struct {
-								AllergenList        string `xml:"allergenList"`
-								DietRestrictionList string `xml:"dietRestrictionList"`
-							} `xml:"nutritionalCharacteristics"`
-						} `xml:"preparationMethod"`
-					} `xml:"preparationMethodList"`
-					LinkedArticleList struct {
-						LinkedArticle []struct {
-							ArticleNumber string `xml:"articleNumber"`
-							Quantity      string `xml:"quantity"`
-							DecimalPlaces string `xml:"decimalPlaces"`
-						} `xml:"linkedArticle"`
-					} `xml:"linkedArticleList"`
-					BarcodeList struct {
-						Barcode struct {
-							BarcodeId     string  `xml:"barcodeId"`
-							Description   string  `xml:"description"`
-							Quantity      string  `xml:"quantity"`
-							DecimalPlaces string  `xml:"decimalPlaces"`
-							PurchasePrice float64 `xml:"purchasePrice"`
-							PriceIncl     float64 `xml:"priceIncl"`
-							IsCurrent     string  `xml:"isCurrent"`
-							Barcode       string  `xml:"barcode"`
-							PriceExcl     float64 `xml:"priceExcl"`
-						} `xml:"barcode"`
-					} `xml:"barcodeList"`
-					AskFor                     string `xml:"askFor"`
-					Discontinued               string `xml:"discontinued"`
-					NutritionalCharacteristics struct {
-						AllergenList        string `xml:"allergenList"`
-						DietRestrictionList string `xml:"dietRestrictionList"`
-					} `xml:"nutritionalCharacteristics"`
-					ComponentArticleList struct {
-						ComponentArticle []struct {
-							ArticleNumber     string  `xml:"articleNumber"`
-							Quantity          string  `xml:"quantity"`
-							DecimalPlaces     string  `xml:"decimalPlaces"`
-							Description       string  `xml:"description"`
-							InvoiceText       string  `xml:"invoiceText"`
-							ReceiptText       string  `xml:"receiptText"`
-							DisplayText       string  `xml:"displayText"`
-							Barcode           string  `xml:"barcode"`
-							TurnoverGroup     string  `xml:"turnoverGroup"`
-							VatCode           string  `xml:"vatCode"`
-							VatPercentage     float64 `xml:"vatPercentage"`
-							PurchasePrice     float64 `xml:"purchasePrice"`
-							PriceIncl         float64 `xml:"priceIncl"`
-							PriceExcl         float64 `xml:"priceExcl"`
-							LinkedArticleList struct {
-								LinkedArticle struct {
-									ArticleNumber string `xml:"articleNumber"`
-									Quantity      string `xml:"quantity"`
-									DecimalPlaces string `xml:"decimalPlaces"`
-								} `xml:"linkedArticle"`
-							} `xml:"linkedArticleList"`
-						} `xml:"componentArticle"`
-					} `xml:"componentArticleList"`
-					PriceGroupList struct {
-						PriceGroup struct {
-							PriceGroupNumber   string  `xml:"priceGroupNumber"`
-							Description        string  `xml:"description"`
-							DiscountPercentage float64 `xml:"discountPercentage"`
-						} `xml:"priceGroup"`
-					} `xml:"priceGroupList"`
-					OrderQuantityValue         string `xml:"orderQuantityValue"`
-					OrderQuantityDecimalPlaces string `xml:"orderQuantityDecimalPlaces"`
-					SupplierRelationNumber     string `xml:"supplierRelationNumber"`
-					SupplierRelationName       string `xml:"supplierRelationName"`
-				} `xml:"article"`
-			} `xml:"articleList"`
-			SortOrderGroupList struct {
-				SortOrderGroup []struct {
-					GroupNumber string `xml:"groupNumber"`
-					SortOrder   string `xml:"sortOrder"`
-				} `xml:"sortOrderGroup"`
-			} `xml:"sortOrderGroupList"`
-			GroupNumbers []string `xml:"groupNumbers"`
-		} `xml:"product"`
+		Product Products `xml:"product"`
 	} `xml:"productList"`
 }
 
@@ -311,6 +148,34 @@ func (r *GetProductsRequest) Do() (GetProductsRequestResponseBody, error) {
 	}
 
 	return *responseBody, nil
+}
+
+func (r *GetProductsRequest) All() (GetProductsRequestResponseBody, error) {
+	r.RequestBody().Request.SyncMarker = -1
+	resp, err := r.Do()
+	if err != nil {
+		return resp, err
+	}
+
+	concat := *r.NewResponseBody()
+	concat.ProductList.Product = resp.ProductList.Product
+
+	for len(resp.ProductList.Product) > 0 {
+		for _, p := range resp.ProductList.Product {
+			if p.SyncMarker >= r.RequestBody().Request.SyncMarker {
+				r.RequestBody().Request.SyncMarker = (p.SyncMarker + 1)
+			}
+		}
+
+		resp, err = r.Do()
+		if err != nil {
+			return concat, err
+		}
+
+		concat.ProductList.Product = append(concat.ProductList.Product, resp.ProductList.Product...)
+	}
+
+	return concat, nil
 }
 
 type GetProductsBasic struct {
