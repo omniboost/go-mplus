@@ -153,30 +153,31 @@ func (r *GetProductsRequest) Do() (GetProductsRequestResponseBody, error) {
 
 func (r *GetProductsRequest) All() (GetProductsRequestResponseBody, error) {
 	r.RequestBody().Request.SyncMarker = -1
-	resp, err := r.Do()
-	if err != nil {
-		return resp, err
-	}
 
-	concat := *r.NewResponseBody()
-	concat.ProductList.Product = resp.ProductList.Product
+	response := *r.NewResponseBody()
+	for {
+		resp, err := r.Do()
+		if err != nil {
+			return resp, err
+		}
 
-	for len(resp.ProductList.Product) > 0 {
+		// Break out of loop when no products are found
+		if len(resp.ProductList.Product) == 0 {
+			break
+		}
+
+		// Get latest sync marker
 		for _, p := range resp.ProductList.Product {
 			if p.SyncMarker >= r.RequestBody().Request.SyncMarker {
 				r.RequestBody().Request.SyncMarker = (p.SyncMarker + 1)
 			}
 		}
 
-		resp, err = r.Do()
-		if err != nil {
-			return concat, err
-		}
-
-		concat.ProductList.Product = append(concat.ProductList.Product, resp.ProductList.Product...)
+		// Add products to list
+		response.ProductList.Product = append(response.ProductList.Product, resp.ProductList.Product...)
 	}
 
-	return concat, nil
+	return response, nil
 }
 
 type GetProductsBasic struct {
