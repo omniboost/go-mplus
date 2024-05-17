@@ -14,7 +14,6 @@ func TestGetFinancialJournal(t *testing.T) {
 	req.RequestBody().Request.ThroughFinancialDate.Day = 5
 	req.RequestBody().Request.ThroughFinancialDate.Mon = 5
 	req.RequestBody().Request.ThroughFinancialDate.Year = 2021
-	req.RequestBody().Request.BranchNumbers = []int{4}
 	resp, err := req.Do()
 	if err != nil {
 		t.Error(err)

@@ -21,13 +21,39 @@ func (c Customer) IsEmpty() bool {
 type Journals []Journal
 
 type Journal struct {
-	FinancialDate struct {
-		Day  int `xml:"day"`
-		Mon  int `xml:"mon"`
-		Year int `xml:"year"`
-	} `xml:"financialDate"`
-	JournalFilters []string `xml:"journalFilterList>journalFilter"`
-	BranchNumber   int      `xml:"branchNumber"`
+	FinancialDate     Date `xml:"financialDate"`
+	JournalFilterList struct {
+		JournalFilter []string `xml:"journalFilter"`
+	} `xml:"journalFilterList"`
+	BranchNumber string `xml:"branchNumber"`
+	ExtBranchID  string `xml:"extBranchId"`
+	VatGroupList struct {
+		VatGroup []struct {
+			VatCode       int     `xml:"vatCode"`
+			VatPercentage float64 `xml:"vatPercentage"`
+			ExclAmount    float64 `xml:"exclAmount"`
+			VatAmount     float64 `xml:"vatAmount"`
+		} `xml:"vatGroup"`
+	} `xml:"vatGroupList"`
+	TurnoverGroupList struct {
+		TurnoverGroup []struct {
+			TurnoverGroupType string  `xml:"turnoverGroupType"`
+			TurnoverGroup     string  `xml:"turnoverGroup"`
+			TurnoverGroupName string  `xml:"turnoverGroupName"`
+			InclAmount        float64 `xml:"inclAmount"`
+			ExclAmount        float64 `xml:"exclAmount"`
+			AccountNumber     string  `xml:"accountNumber"`
+		} `xml:"turnoverGroup"`
+	} `xml:"turnoverGroupList"`
+	PaymentList struct {
+		Payment []struct {
+			Method            string  `xml:"method"`
+			Description       string  `xml:"description"`
+			Amount            float64 `xml:"amount"`
+			PaymentMethodType string  `xml:"paymentMethodType"`
+			AccountNumber     string  `xml:"accountNumber"`
+		} `xml:"payment"`
+	} `xml:"paymentList"`
 }
 
 type PaymentMethods []PaymentMethod
@@ -68,31 +94,18 @@ type Receipt struct {
 		Year            string `xml:"year"`
 		Number          string `xml:"number"`
 	} `xml:"receiptNumber"`
-	ReceiptBarcode string `xml:"receiptBarcode"`
-	ReceiptType    string `xml:"receiptType"`
-	EmployeeNumber string `xml:"employeeNumber"`
-	EmployeeName   string `xml:"employeeName"`
-	EntryTimestamp struct {
-		Sec      string `xml:"sec"`
-		Min      string `xml:"min"`
-		Hour     string `xml:"hour"`
-		Day      string `xml:"day"`
-		Mon      string `xml:"mon"`
-		Year     string `xml:"year"`
-		Isdst    string `xml:"isdst"`
-		Timezone string `xml:"timezone"`
-	} `xml:"entryTimestamp"`
-	FinancialDate struct {
-		Day  string `xml:"day"`
-		Mon  string `xml:"mon"`
-		Year string `xml:"year"`
-	} `xml:"financialDate"`
-	FinancialBranchNumber string `xml:"financialBranchNumber"`
-	WorkplaceNumber       string `xml:"workplaceNumber"`
-	Reference             string `xml:"reference"`
-	TotalInclAmount       string `xml:"totalInclAmount"`
-	TotalExclAmount       string `xml:"totalExclAmount"`
-	VatMethod             string `xml:"vatMethod"`
+	ReceiptBarcode        string    `xml:"receiptBarcode"`
+	ReceiptType           string    `xml:"receiptType"`
+	EmployeeNumber        string    `xml:"employeeNumber"`
+	EmployeeName          string    `xml:"employeeName"`
+	EntryTimestamp        Timestamp `xml:"entryTimestamp"`
+	FinancialDate         Date      `xml:"financialDate"`
+	FinancialBranchNumber string    `xml:"financialBranchNumber"`
+	WorkplaceNumber       string    `xml:"workplaceNumber"`
+	Reference             string    `xml:"reference"`
+	TotalInclAmount       float64   `xml:"totalInclAmount"`
+	TotalExclAmount       float64   `xml:"totalExclAmount"`
+	VatMethod             string    `xml:"vatMethod"`
 	VatGroupList          struct {
 		VatGroup []struct {
 			VatCode       string `xml:"vatCode"`
@@ -107,7 +120,6 @@ type Receipt struct {
 	State         string `xml:"state"`
 	LineList      struct {
 		Line []struct {
-			Chardata       string `xml:",chardata"`
 			LineID         string `xml:"lineId"`
 			EmployeeNumber string `xml:"employeeNumber"`
 			ArticleNumber  int    `xml:"articleNumber"`
@@ -134,7 +146,6 @@ type Receipt struct {
 			CourseNumber    string `xml:"courseNumber"`
 			PreparationList struct {
 				Line []struct {
-					Chardata       string `xml:",chardata"`
 					LineID         string `xml:"lineId"`
 					EmployeeNumber string `xml:"employeeNumber"`
 					ArticleNumber  int    `xml:"articleNumber"`
@@ -165,12 +176,8 @@ type Receipt struct {
 	} `xml:"lineList"`
 	PaymentList struct {
 		Payment struct {
-			PaymentID     string `xml:"paymentId"`
-			FinancialDate struct {
-				Day  string `xml:"day"`
-				Mon  string `xml:"mon"`
-				Year string `xml:"year"`
-			} `xml:"financialDate"`
+			PaymentID     string  `xml:"paymentId"`
+			FinancialDate Date    `xml:"financialDate"`
 			Method        string  `xml:"method"`
 			Amount        float64 `xml:"amount"`
 			AccountNumber string  `xml:"accountNumber"`
@@ -189,9 +196,7 @@ type TurnoverGroup struct {
 	AllowPointsPayment      string `xml:"allowPointsPayment"`
 	AllowDiscount           string `xml:"allowDiscount"`
 	BranchAccountNumberList struct {
-		Text                string `xml:",chardata"`
 		BranchAccountNumber []struct {
-			Text          string `xml:",chardata"`
 			BranchNumber  string `xml:"branchNumber"`
 			AccountNumber string `xml:"accountNumber"`
 		} `xml:"branchAccountNumber"`
@@ -373,23 +378,15 @@ type Product struct {
 type FinancialGroups []FinancialGroup
 
 type FinancialGroup struct {
-	FinancialGroupType   string `xml:"financialGroupType"`
-	FinancialGroupSource string `xml:"financialGroupSource"`
-	FinancialGroupNumber string `xml:"financialGroupNumber"`
-	FinancialGroupName   string `xml:"financialGroupName"`
-	AccountNumber        int    `xml:"accountNumber"`
-	BranchNumber         int    `xml:"branchNumber"`
-	ExtBranchId          int    `xml:"extBranchId"`
-	FromFinancialDate    struct {
-		Day  int `xml:"day"`
-		Mon  int `xml:"mon"`
-		Year int `xml:"year"`
-	} `xml:"fromFinancialDate"`
-	ThroughFinancialDate struct {
-		Day  int `xml:"day"`
-		Mon  int `xml:"mon"`
-		Year int `xml:"year"`
-	} `xml:"throughFinancialDate"`
+	FinancialGroupType    string  `xml:"financialGroupType"`
+	FinancialGroupSource  string  `xml:"financialGroupSource"`
+	FinancialGroupNumber  string  `xml:"financialGroupNumber"`
+	FinancialGroupName    string  `xml:"financialGroupName"`
+	AccountNumber         int     `xml:"accountNumber"`
+	BranchNumber          int     `xml:"branchNumber"`
+	ExtBranchId           int     `xml:"extBranchId"`
+	FromFinancialDate     Date    `xml:"fromFinancialDate"`
+	ThroughFinancialDate  Date    `xml:"throughFinancialDate"`
 	FinancialPeriodClosed string  `xml:"financialPeriodClosed"`
 	Quantity              int     `xml:"quantity"`
 	DecimalPlaces         int     `xml:"decimalPlaces"`
@@ -403,4 +400,10 @@ type FinancialGroup struct {
 			VatAmount     float64 `xml:"vatAmount"`
 		} `xml:"vatGroup"`
 	} `xml:"vatGroupList"`
+}
+
+type Date struct {
+	Day  string `xml:"day"`
+	Mon  string `xml:"mon"`
+	Year string `xml:"year"`
 }

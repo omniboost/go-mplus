@@ -102,7 +102,6 @@ type GetFinancialJournalRequestBody struct {
 			Mon  int `xml:"urn:mon"`
 			Year int `xml:"urn:year"`
 		} `xml:"urn:throughFinancialDate"`
-		BranchNumbers []int `xml:"urn:branchNumbers"`
 	} `xml:"urn:request"`
 }
 
