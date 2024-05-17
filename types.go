@@ -148,7 +148,7 @@ type Invoice struct {
 		} `xml:"line"`
 	} `xml:"lineList"`
 	PaymentList struct {
-		Payment struct {
+		Payment []struct {
 			PaymentID     string  `xml:"paymentId"`
 			FinancialDate Date    `xml:"financialDate"`
 			Method        string  `xml:"method"`
@@ -257,7 +257,7 @@ type Receipt struct {
 		} `xml:"line"`
 	} `xml:"lineList"`
 	PaymentList struct {
-		Payment struct {
+		Payment []struct {
 			PaymentID     string  `xml:"paymentId"`
 			FinancialDate Date    `xml:"financialDate"`
 			Method        string  `xml:"method"`
@@ -293,7 +293,7 @@ type Product struct {
 	Description   string `xml:"description"`
 	ExtraText     string `xml:"extraText"`
 	ArticleList   struct {
-		Article struct {
+		Article []struct {
 			ArticleNumber         int       `xml:"articleNumber"`
 			ExternalArticleID     string    `xml:"extArticleId"`
 			PluNumber             string    `xml:"pluNumber"`
