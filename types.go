@@ -295,6 +295,7 @@ type Product struct {
 	ArticleList   struct {
 		Article struct {
 			ArticleNumber         int       `xml:"articleNumber"`
+			ExternalArticleID     string    `xml:"extArticleId"`
 			PluNumber             string    `xml:"pluNumber"`
 			SyncMarker            int       `xml:"syncMarker"`
 			ChangeTimestamp       Timestamp `xml:"changeTimestamp"`
