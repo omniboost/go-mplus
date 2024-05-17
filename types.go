@@ -79,6 +79,88 @@ type Timestamp struct {
 	Timezone string `xml:"timezone"`
 }
 
+type Invoices []Invoice
+
+type Invoice struct {
+	InvoiceID         string `xml:"invoiceId"`
+	TransactionString string `xml:"transactionString"`
+	SyncMarker        string `xml:"syncMarker"`
+	InvoiceNumber     struct {
+		Year   string `xml:"year"`
+		Number string `xml:"number"`
+	} `xml:"invoiceNumber"`
+	InvoiceBarcode        string    `xml:"invoiceBarcode"`
+	InvoiceType           string    `xml:"invoiceType"`
+	EmployeeNumber        string    `xml:"employeeNumber"`
+	EmployeeName          string    `xml:"employeeName"`
+	EntryTimestamp        Timestamp `xml:"entryTimestamp"`
+	RelationNumber        string    `xml:"relationNumber"`
+	RelationName          string    `xml:"relationName"`
+	RelationCategoryID    string    `xml:"relationCategoryId"`
+	FinancialDate         Date      `xml:"financialDate"`
+	FinancialBranchNumber string    `xml:"financialBranchNumber"`
+	WorkplaceNumber       string    `xml:"workplaceNumber"`
+	EntryBranchNumber     string    `xml:"entryBranchNumber"`
+	Reference             string    `xml:"reference"`
+	DueDate               Date      `xml:"dueDate"`
+	TotalInclAmount       float64   `xml:"totalInclAmount"`
+	TotalExclAmount       float64   `xml:"totalExclAmount"`
+	VatMethod             string    `xml:"vatMethod"`
+	VatGroupList          struct {
+		VatGroup []struct {
+			VatCode       string `xml:"vatCode"`
+			VatPercentage string `xml:"vatPercentage"`
+			ExclAmount    string `xml:"exclAmount"`
+			VatAmount     string `xml:"vatAmount"`
+		} `xml:"vatGroup"`
+	} `xml:"vatGroupList"`
+	ChangeCounter      string    `xml:"changeCounter"`
+	VersionNumber      string    `xml:"versionNumber"`
+	PaidAmount         string    `xml:"paidAmount"`
+	State              string    `xml:"state"`
+	Finalized          string    `xml:"finalized"`
+	FinalizedTimestamp Timestamp `xml:"finalizedTimestamp"`
+	LineList           struct {
+		Line []struct {
+			LineID         string `xml:"lineId"`
+			EmployeeNumber string `xml:"employeeNumber"`
+			ArticleNumber  int    `xml:"articleNumber"`
+			LineType       string `xml:"lineType"`
+			Data           struct {
+				Quantity           int     `xml:"quantity"`
+				DecimalPlaces      string  `xml:"decimalPlaces"`
+				Price              float64 `xml:"price"`
+				PriceExcl          float64 `xml:"priceExcl"`
+				OriginalPrice      float64 `xml:"originalPrice"`
+				OriginalPriceExcl  float64 `xml:"originalPriceExcl"`
+				PurchasePrice      float64 `xml:"purchasePrice"`
+				TurnoverGroup      int     `xml:"turnoverGroup"`
+				TurnoverGroupType  string  `xml:"turnoverGroupType"`
+				VatCode            int     `xml:"vatCode"`
+				VatPercentage      float64 `xml:"vatPercentage"`
+				DiscountType       string  `xml:"discountType"`
+				DiscountPercentage float64 `xml:"discountPercentage"`
+				DiscountAmount     float64 `xml:"discountAmount"`
+				TotalInclAmount    float64 `xml:"totalInclAmount"`
+				TotalExclAmount    float64 `xml:"totalExclAmount"`
+				PriceType          string  `xml:"priceType"`
+			} `xml:"data"`
+		} `xml:"line"`
+	} `xml:"lineList"`
+	PaymentList struct {
+		Payment struct {
+			PaymentID     string  `xml:"paymentId"`
+			FinancialDate Date    `xml:"financialDate"`
+			Method        string  `xml:"method"`
+			Amount        float64 `xml:"amount"`
+			AccountNumber string  `xml:"accountNumber"`
+		} `xml:"payment"`
+	} `xml:"paymentList"`
+	VatChange      string `xml:"vatChange"`
+	VatCountryCode string `xml:"vatCountryCode"`
+	VatCountryISO3 string `xml:"vatCountryIso3"`
+}
+
 type Receipts []Receipt
 
 type Receipt struct {
