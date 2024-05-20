@@ -366,7 +366,7 @@ func (c *Client) Unmarshal(r io.Reader, vv []interface{}, optionalVv []interface
 		}
 	}
 
-	for _, v := range vv {
+	for _, v := range optionalVv {
 		r := bytes.NewReader(b)
 		dec := xml.NewDecoder(r)
 
