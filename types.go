@@ -529,7 +529,7 @@ type Order struct {
 	TotalExclAmount       float64 `xml:"totalExclAmount"`
 	VatMethod             string  `xml:"vatMethod"`
 	VatGroupList          struct {
-		VatGroup struct {
+		VatGroup []struct {
 			VatCode       string  `xml:"vatCode"`
 			VatPercentage float64 `xml:"vatPercentage"`
 			ExclAmount    float64 `xml:"exclAmount"`
