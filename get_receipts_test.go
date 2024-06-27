@@ -8,13 +8,13 @@ import (
 
 func TestGetReceipts(t *testing.T) {
 	req := client.NewGetReceiptsRequest()
-	req.RequestBody().Request.FromFinancialDate.Day = 1
-	req.RequestBody().Request.FromFinancialDate.Mon = 1
-	req.RequestBody().Request.FromFinancialDate.Year = 2022
-	req.RequestBody().Request.ThroughFinancialDate.Day = 1
-	req.RequestBody().Request.ThroughFinancialDate.Mon = 1
-	req.RequestBody().Request.ThroughFinancialDate.Year = 2023
-	resp, err := req.Do()
+	req.RequestBody().Request.FromFinancialDate.Day = 13
+	req.RequestBody().Request.FromFinancialDate.Mon = 6
+	req.RequestBody().Request.FromFinancialDate.Year = 2024
+	req.RequestBody().Request.ThroughFinancialDate.Day = 14
+	req.RequestBody().Request.ThroughFinancialDate.Mon = 6
+	req.RequestBody().Request.ThroughFinancialDate.Year = 2024
+	resp, err := req.All()
 	if err != nil {
 		t.Error(err)
 	}

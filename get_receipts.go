@@ -92,6 +92,7 @@ type GetReceiptsRequestBody struct {
 	XMLName xml.Name `xml:"urn:getReceipts"`
 
 	Request struct {
+		SyncMarker        int `xml:"urn:syncMarker,omitempty"`
 		FromFinancialDate struct {
 			Day  int `xml:"urn:day"`
 			Mon  int `xml:"urn:mon"`
@@ -157,6 +158,35 @@ func (r *GetReceiptsRequest) Do() (GetReceiptsRequestResponseBody, error) {
 	}
 
 	return *responseBody, nil
+}
+
+func (r *GetReceiptsRequest) All() (GetReceiptsRequestResponseBody, error) {
+	r.RequestBody().Request.SyncMarker = -1
+
+	response := *r.NewResponseBody()
+	for {
+		resp, err := r.Do()
+		if err != nil {
+			return resp, err
+		}
+
+		// Break out of loop when no receipts are found
+		if len(resp.ReceiptList.Receipt) == 0 {
+			break
+		}
+
+		// Get latest sync marker
+		for _, p := range resp.ReceiptList.Receipt {
+			if p.SyncMarker >= r.RequestBody().Request.SyncMarker {
+				r.RequestBody().Request.SyncMarker = (p.SyncMarker + 1)
+			}
+		}
+
+		// Add products to list
+		response.ReceiptList.Receipt = append(response.ReceiptList.Receipt, resp.ReceiptList.Receipt...)
+	}
+
+	return response, nil
 }
 
 type GetReceiptsBasic struct {
