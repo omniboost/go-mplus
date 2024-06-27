@@ -490,3 +490,118 @@ type Date struct {
 	Mon  string `xml:"mon"`
 	Year string `xml:"year"`
 }
+
+type Orders []Order
+
+type Order struct {
+	OrderId    string `xml:"orderId"`
+	ExtOrderId string `xml:"extOrderId"`
+	InvoiceIds struct {
+		ID string `xml:"id"`
+	} `xml:"invoiceIds"`
+	TransactionString  string    `xml:"transactionString"`
+	SyncMarker         string    `xml:"syncMarker"`
+	OrderType          string    `xml:"orderType"`
+	EntryBranchNumber  string    `xml:"entryBranchNumber"`
+	EmployeeNumber     string    `xml:"employeeNumber"`
+	EmployeeName       string    `xml:"employeeName"`
+	EntryTimestamp     Timestamp `xml:"entryTimestamp"`
+	RelationNumber     string    `xml:"relationNumber"`
+	RelationName       string    `xml:"relationName"`
+	RelationCategoryId string    `xml:"relationCategoryId"`
+	DeliveryAddress    struct {
+		AddressId string `xml:"addressId"`
+		Contact   string `xml:"contact"`
+		Address   string `xml:"address"`
+		Zipcode   string `xml:"zipcode"`
+		City      string `xml:"city"`
+		Country   string `xml:"country"`
+	} `xml:"deliveryAddress"`
+	FinancialDate struct {
+		Day  string `xml:"day"`
+		Mon  string `xml:"mon"`
+		Year string `xml:"year"`
+	} `xml:"financialDate"`
+	FinancialBranchNumber string  `xml:"financialBranchNumber"`
+	WorkplaceNumber       string  `xml:"workplaceNumber"`
+	Reference             string  `xml:"reference"`
+	TotalInclAmount       float64 `xml:"totalInclAmount"`
+	TotalExclAmount       float64 `xml:"totalExclAmount"`
+	VatMethod             string  `xml:"vatMethod"`
+	VatGroupList          struct {
+		VatGroup struct {
+			VatCode       string  `xml:"vatCode"`
+			VatPercentage float64 `xml:"vatPercentage"`
+			ExclAmount    float64 `xml:"exclAmount"`
+			VatAmount     float64 `xml:"vatAmount"`
+		} `xml:"vatGroup"`
+	} `xml:"vatGroupList"`
+	DeliveryDate struct {
+		Day  string `xml:"day"`
+		Mon  string `xml:"mon"`
+		Year string `xml:"year"`
+	} `xml:"deliveryDate"`
+	DeliveryPeriodBegin struct {
+		Sec      string `xml:"sec"`
+		Min      string `xml:"min"`
+		Hour     string `xml:"hour"`
+		Day      string `xml:"day"`
+		Mon      string `xml:"mon"`
+		Year     string `xml:"year"`
+		Isdst    string `xml:"isdst"`
+		Timezone string `xml:"timezone"`
+	} `xml:"deliveryPeriodBegin"`
+	DeliveryPeriodEnd struct {
+		Sec      string `xml:"sec"`
+		Min      string `xml:"min"`
+		Hour     string `xml:"hour"`
+		Day      string `xml:"day"`
+		Mon      string `xml:"mon"`
+		Year     string `xml:"year"`
+		Isdst    string `xml:"isdst"`
+		Timezone string `xml:"timezone"`
+	} `xml:"deliveryPeriodEnd"`
+	ChangeCounter string  `xml:"changeCounter"`
+	VersionNumber string  `xml:"versionNumber"`
+	PrepaidAmount float64 `xml:"prepaidAmount"`
+	FullyPaid     string  `xml:"fullyPaid"`
+	DeliveryState string  `xml:"deliveryState"`
+	CancelState   string  `xml:"cancelState"`
+	CompleteState string  `xml:"completeState"`
+	OrderNumber   struct {
+		Year   string `xml:"year"`
+		Number string `xml:"number"`
+	} `xml:"orderNumber"`
+	OrderBarcode string `xml:"orderBarcode"`
+	LineList     struct {
+		Line struct {
+			Chardata       string `xml:",chardata"`
+			LineId         string `xml:"lineId"`
+			EmployeeNumber string `xml:"employeeNumber"`
+			ArticleNumber  string `xml:"articleNumber"`
+			Data           struct {
+				Quantity           string  `xml:"quantity"`
+				DecimalPlaces      string  `xml:"decimalPlaces"`
+				Price              float64 `xml:"price"`
+				PriceExcl          float64 `xml:"priceExcl"`
+				OriginalPrice      float64 `xml:"originalPrice"`
+				OriginalPriceExcl  float64 `xml:"originalPriceExcl"`
+				PurchasePrice      float64 `xml:"purchasePrice"`
+				TurnoverGroup      string  `xml:"turnoverGroup"`
+				TurnoverGroupType  string  `xml:"turnoverGroupType"`
+				VatCode            string  `xml:"vatCode"`
+				VatPercentage      float64 `xml:"vatPercentage"`
+				DiscountType       string  `xml:"discountType"`
+				DiscountPercentage float64 `xml:"discountPercentage"`
+				DiscountAmount     float64 `xml:"discountAmount"`
+				TotalInclAmount    float64 `xml:"totalInclAmount"`
+				TotalExclAmount    float64 `xml:"totalExclAmount"`
+				PriceType          string  `xml:"priceType"`
+			} `xml:"data"`
+			LineType string `xml:"lineType"`
+		} `xml:"line"`
+	} `xml:"lineList"`
+	PaymentList    string `xml:"paymentList"`
+	VatChange      string `xml:"vatChange"`
+	VatCountryCode string `xml:"vatCountryCode"`
+}
