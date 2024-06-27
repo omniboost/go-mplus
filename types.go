@@ -604,4 +604,5 @@ type Order struct {
 	PaymentList    string `xml:"paymentList"`
 	VatChange      string `xml:"vatChange"`
 	VatCountryCode string `xml:"vatCountryCode"`
+	VatCountryIso3 string `xml:"vatCountryIso3"`
 }
