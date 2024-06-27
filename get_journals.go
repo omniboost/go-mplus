@@ -92,6 +92,9 @@ type GetJournalsRequestBody struct {
 	XMLName xml.Name `xml:"urn:getJournals"`
 
 	Request struct {
+		JournalFilterList struct {
+			JournalFilter []string `xml:"urn:journalFilter"`
+		} `xml:"urn:journalFilterList"`
 		FromFinancialDate struct {
 			Day  int `xml:"urn:day"`
 			Mon  int `xml:"urn:mon"`
