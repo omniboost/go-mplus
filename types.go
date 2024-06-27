@@ -601,7 +601,15 @@ type Order struct {
 			LineType string `xml:"lineType"`
 		} `xml:"line"`
 	} `xml:"lineList"`
-	PaymentList    string `xml:"paymentList"`
+	PaymentList struct {
+		Payment []struct {
+			PaymentID     string  `xml:"paymentId"`
+			FinancialDate Date    `xml:"financialDate"`
+			Method        string  `xml:"method"`
+			Amount        float64 `xml:"amount"`
+			AccountNumber string  `xml:"accountNumber"`
+		} `xml:"payment"`
+	} `xml:"paymentList"`
 	VatChange      string `xml:"vatChange"`
 	VatCountryCode string `xml:"vatCountryCode"`
 	VatCountryIso3 string `xml:"vatCountryIso3"`
