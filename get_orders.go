@@ -92,6 +92,7 @@ type GetOrdersRequestBody struct {
 	XMLName xml.Name `xml:"urn:getOrders"`
 
 	Request struct {
+		SyncMarker        int `xml:"urn:syncMarker,omitempty"`
 		FromFinancialDate struct {
 			Day  int `xml:"urn:day"`
 			Mon  int `xml:"urn:mon"`
@@ -157,6 +158,35 @@ func (r *GetOrdersRequest) Do() (GetOrdersRequestResponseBody, error) {
 	}
 
 	return *responseBody, nil
+}
+
+func (r *GetOrdersRequest) All() (GetOrdersRequestResponseBody, error) {
+	r.RequestBody().Request.SyncMarker = -1
+
+	response := *r.NewResponseBody()
+	for {
+		resp, err := r.Do()
+		if err != nil {
+			return resp, err
+		}
+
+		// Break out of loop when no orders are found
+		if len(resp.OrderList.Order) == 0 {
+			break
+		}
+
+		// Get latest sync marker
+		for _, p := range resp.OrderList.Order {
+			if p.SyncMarker >= r.RequestBody().Request.SyncMarker {
+				r.RequestBody().Request.SyncMarker = (p.SyncMarker + 1)
+			}
+		}
+
+		// Add orders to list
+		response.OrderList.Order = append(response.OrderList.Order, resp.OrderList.Order...)
+	}
+
+	return response, nil
 }
 
 type GetOrdersBasic struct {

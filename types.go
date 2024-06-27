@@ -500,7 +500,7 @@ type Order struct {
 		ID string `xml:"id"`
 	} `xml:"invoiceIds"`
 	TransactionString  string    `xml:"transactionString"`
-	SyncMarker         string    `xml:"syncMarker"`
+	SyncMarker         int       `xml:"syncMarker"`
 	OrderType          string    `xml:"orderType"`
 	EntryBranchNumber  string    `xml:"entryBranchNumber"`
 	EmployeeNumber     string    `xml:"employeeNumber"`
