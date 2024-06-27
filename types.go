@@ -578,7 +578,7 @@ type Order struct {
 			Chardata       string `xml:",chardata"`
 			LineId         string `xml:"lineId"`
 			EmployeeNumber string `xml:"employeeNumber"`
-			ArticleNumber  string `xml:"articleNumber"`
+			ArticleNumber  int    `xml:"articleNumber"`
 			Data           struct {
 				Quantity           string  `xml:"quantity"`
 				DecimalPlaces      string  `xml:"decimalPlaces"`
