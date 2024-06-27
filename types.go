@@ -587,9 +587,9 @@ type Order struct {
 				OriginalPrice      float64 `xml:"originalPrice"`
 				OriginalPriceExcl  float64 `xml:"originalPriceExcl"`
 				PurchasePrice      float64 `xml:"purchasePrice"`
-				TurnoverGroup      string  `xml:"turnoverGroup"`
+				TurnoverGroup      int     `xml:"turnoverGroup"`
 				TurnoverGroupType  string  `xml:"turnoverGroupType"`
-				VatCode            string  `xml:"vatCode"`
+				VatCode            int     `xml:"vatCode"`
 				VatPercentage      float64 `xml:"vatPercentage"`
 				DiscountType       string  `xml:"discountType"`
 				DiscountPercentage float64 `xml:"discountPercentage"`
