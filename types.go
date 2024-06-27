@@ -108,10 +108,10 @@ type Invoice struct {
 	VatMethod             string    `xml:"vatMethod"`
 	VatGroupList          struct {
 		VatGroup []struct {
-			VatCode       string `xml:"vatCode"`
-			VatPercentage string `xml:"vatPercentage"`
-			ExclAmount    string `xml:"exclAmount"`
-			VatAmount     string `xml:"vatAmount"`
+			VatCode       string  `xml:"vatCode"`
+			VatPercentage float64 `xml:"vatPercentage"`
+			ExclAmount    float64 `xml:"exclAmount"`
+			VatAmount     float64 `xml:"vatAmount"`
 		} `xml:"vatGroup"`
 	} `xml:"vatGroupList"`
 	ChangeCounter      string    `xml:"changeCounter"`
@@ -190,10 +190,10 @@ type Receipt struct {
 	VatMethod             string    `xml:"vatMethod"`
 	VatGroupList          struct {
 		VatGroup []struct {
-			VatCode       string `xml:"vatCode"`
-			VatPercentage string `xml:"vatPercentage"`
-			ExclAmount    string `xml:"exclAmount"`
-			VatAmount     string `xml:"vatAmount"`
+			VatCode       string  `xml:"vatCode"`
+			VatPercentage float64 `xml:"vatPercentage"`
+			ExclAmount    float64 `xml:"exclAmount"`
+			VatAmount     float64 `xml:"vatAmount"`
 		} `xml:"vatGroup"`
 	} `xml:"vatGroupList"`
 	ChangeCounter string `xml:"changeCounter"`
