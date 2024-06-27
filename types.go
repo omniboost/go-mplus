@@ -574,7 +574,7 @@ type Order struct {
 	} `xml:"orderNumber"`
 	OrderBarcode string `xml:"orderBarcode"`
 	LineList     struct {
-		Line struct {
+		Line []struct {
 			Chardata       string `xml:",chardata"`
 			LineId         string `xml:"lineId"`
 			EmployeeNumber string `xml:"employeeNumber"`
