@@ -92,9 +92,12 @@ type GetProductsRequestBody struct {
 	XMLName xml.Name `xml:"urn:getProducts"`
 
 	Request struct {
-		SyncMarker     int   `xml:"urn:syncMarker,omitempty"`
-		OnlyActive     bool  `xml:"urn:onlyActive"`
-		ArticleNumbers []int `xml:"urn:articleNumbers"`
+		SyncMarker                          int   `xml:"urn:syncMarker,omitempty"`
+		SyncMarkerLimit                     int   `xml:"urn:syncMarkerLimit,omitempty"`
+		OnlyActive                          bool  `xml:"urn:onlyActive"`
+		ArticleNumbers                      []int `xml:"urn:articleNumbers,omitempty"`
+		ProductNumbers                      []int `xml:"urn:productNumbers,omitempty"`
+		SyncMarkerExcludePreparationMethods bool  `xml:"urn:syncMarkerExcludePreparationMethods,omitempty"`
 	} `xml:"urn:request"`
 }
 
